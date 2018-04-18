@@ -6,7 +6,10 @@ enum Event {
 }
 
 fn diagnose(event: Event) -> String {
-    String::from("")
+    match event {
+        Event::Mouse{x,y} => String::from(format!("Mouse({}, {})", x, y)),
+        Event::Keyboard{0:data} => String::from(format!("Keycode: {}", data)),
+    }
 }
 
 mod event_should {
