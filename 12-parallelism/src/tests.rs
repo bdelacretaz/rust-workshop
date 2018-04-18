@@ -7,13 +7,8 @@ mod simple_thread {
     #[test]
     fn spawn_a_thread_and_get_his_id() {
         let father_id = thread::current().id();
-
-        //TODO: spawn your thread here and return his id
-
-
-        //TODO: Update child_id with the thread::join() return value (id of the thread)
-        let child_id = thread::current().id();
-
+        let child = thread::spawn(|| 1 + 1);
+        let child_id = child.thread().id();
         assert_ne!(father_id, child_id);
     }
 
@@ -27,11 +22,9 @@ mod simple_thread {
         let message_to_send = "hello";
         let (sender, receiver) = channel();
 
-
-        //TODO:
-        // - Spawn a new thread
-        // - Use the "sender" above to send the message `message_to_send` to your receiver
-
+        thread::spawn(move || {
+            sender.send(message_to_send).unwrap();
+        });
 
         let msg_recv = receiver.recv_timeout(Duration::from_millis(20))
                                     .unwrap_or("nope");
@@ -42,14 +35,14 @@ mod simple_thread {
     #[test]
     fn create_multiple_producers_by_cloning_the_transmitter() {
         let (sender, receiver) = channel();
-        //TODO: Clone your sender
+        let other_sender = sender.clone() ;
 
         thread::spawn(move || {
             sender.send(1).unwrap();
         });
 
         thread::spawn(move || {
-            //TODO: Send a message here with your new second sender
+            other_sender.send(2).unwrap();
         });
 
         let mut nb_msg = 0;
