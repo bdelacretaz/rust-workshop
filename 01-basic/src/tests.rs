@@ -1,20 +1,27 @@
 #![allow(dead_code)]
 
-fn get_false() {
+fn get_false() -> bool {
+  false as bool
 }
 
-fn get_42i32() {
+fn get_42i32() -> i32 {
+  42 as i32
 }
 
-fn get_pi() {
+fn get_pi() -> f64 {
+  3.14 as f64
 }
 
-fn get_unit() -> usize {
-    8
+fn get_unit() {
+    ()
 }
 
 fn get_debug(num: i64, debug_string: &str) -> String {
-    String::from("")
+    format!("\"{}\" debug: {:?}", debug_string, num)
+}
+
+fn add(left: u8, right: u16) -> u32 {
+    (left as u32) + (right as u32)
 }
 
 mod test {
