@@ -1,11 +1,46 @@
 #![allow(dead_code)]
 
+#[derive(Debug)]
+#[derive(PartialEq)]
+struct TuplePoint(i64,i64);
+
+impl TuplePoint {
+    fn x(self) -> i64 {
+        self.0
+    }    
+    
+    fn y(self) -> i64 {
+        self.1
+    }    
+}
+
+#[derive(Debug)]
+struct NamedPoint {
+    x: i64 ,
+    y: i64 ,
+    name: String ,    
+}
+
+impl NamedPoint {
+    fn new(x : i64, y : i64, name: &str) -> NamedPoint {
+            NamedPoint { x, y, name: String::from(name) }
+    }
+    
+    fn copy(np : NamedPoint, new_name: &str) -> NamedPoint {
+            NamedPoint { x: np.x, y: np.y, name: String::from(new_name) }
+    }
+    
+    fn x(self) -> i64 {
+        self.x
+    }    
+}
+
 mod tuple_point_should {
     use super::*;
     
     #[test]
     fn be_created_as_tuple_of_i64() {
-        let point = TuplePoint(1i64, 2i64);
+        let _point = TuplePoint(1i64, 2i64);
     }
 
     #[test]
@@ -51,7 +86,7 @@ mod named_point_should {
     
     #[test]
     fn be_created_as_struct() {
-        let point = NamedPoint { x: 1i64, y: 2i64, name: String::from("standard init") };
+        let _point = NamedPoint { x: 1i64, y: 2i64, name: String::from("standard init") };
     }
 
     #[test]
